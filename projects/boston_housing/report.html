@@ -15042,17 +15042,20 @@ Name: MEDV, dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>Predicted selling price for Client 1's home: $403,025.00
-Predicted selling price for Client 2's home: $237,478.72
-Predicted selling price for Client 3's home: $931,636.36</p>
+<p>Predicted selling price for Client 1's home: \$403,025.00
+Predicted selling price for Client 2's home: \$237,478.72
+Predicted selling price for Client 3's home: \$931,636.36</p>
 <p>Yes. the prices is reasonable. However, if you could taken more features in our model, we might get a better prediction.</p>
-<p>The mean for RM LSTAT   PTRATIO is 6.240288 12.939632   18.516564. The mean housing price is $454,343
-client_data = [[5, 17, 15], # Client 1
-               [4, 32, 22], # Client 2
-               [8, 3, 12]]  # Client 3
-Client 1's home: RM below mean, LSTAT higher than mean, PTRATIO lower than mean. All three features have indicated that the prices would be lower than the mean housing prices. so below the mean housing prices is reasonable.</p>
-<p>Client 2's home: RM is near the minimum, LSTAT is close to the maximum and PTRATIO is also the worst. $237k is a reasonable price for this home as it falls between the lower 25\% and minimum in house prices.</p>
-<p>Client 3's home: RM is most at the maximum, LSTAT is near the minimum, PTRATIO is the best. $931k is a reasonable price for this home as it's got all three features indicated the prices should be near the maximum price in the data set.</p>
+<hr>
+<p>The mean for RM LSTAT   PTRATIO is 6.240288 12.939632   18.516564. The mean housing price is \$454,343</p>
+<p>client_data =</p>
+<p>[[5, 17, 15], # Client 1</p>
+<p>[4, 32, 22], # Client 2</p>
+<p>[8, 3, 12]]  # Client 3</p>
+<hr>
+<p>Client 1's home: RM below mean, LSTAT higher than mean, PTRATIO lower than mean. All three features have indicated that the prices would be lower than the mean housing prices. so below the mean housing prices is reasonable.</p>
+<p>Client 2's home: RM is near the minimum, LSTAT is close to the maximum and PTRATIO is also the worst. \$237k is a reasonable price for this home as it falls between the lower 25\% and minimum in house prices.</p>
+<p>Client 3's home: RM is most at the maximum, LSTAT is near the minimum, PTRATIO is the best. \$931k is a reasonable price for this home as it's got all three features indicated the prices should be near the maximum price in the data set.</p>
 
 </div>
 </div>
