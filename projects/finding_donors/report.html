@@ -13369,13 +13369,13 @@ Naive Predictor: [Accuracy score: 0.2478, F-score: 0.2917]
 </div>
 </div>**Answer: **
 
-Decision Trees:
+Random Forest:
     
     - Describe one real-world application in industry where the model can be applied.
         Credit risk analysis
         
     - What are the strengths of the model; when does it perform well?
-        Easy to visualize, fast to train, works on small dataset
+        Easy to visualize, fast to train, works on very large dataset
 
     - What are the weaknesses of the model; when does it perform poorly?
         Tends to overfit, Tree might not be balanced.
@@ -13410,6 +13410,7 @@ AdaBoost:
         Susceptible to noise and outlier
         
     - What makes this model a good candidate for the problem, given what you know about the data?
+        AdaBoost a linear combination of weak learners but suspectible to noise. In this dataset, our data is relatively cleand and if other models overfits then we could choose AdaBoost
         
         
 <div class="cell border-box-sizing text_cell rendered">
@@ -13536,6 +13537,7 @@ In the code block below, you will need to implement the following:</p>
 <span class="c1"># TODO: Initialize the three models</span>
 <span class="n">clf_A</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">clf_B</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">andomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">clf_C</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="c1"># TODO: Calculate the number of samples for 1%, 10%, and 100% of the training data</span>
@@ -14411,7 +14413,7 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The final model we picked is AdaBoost, which stands for Adaptive Boosting algorithm. The reason why random forest was not picked was that it over fitted. AdaBoost on the other hand is a linear combination of weak learners. In fact, the errors for the previous learner is the input for the next learner. The output is an aggregated weighted sum of all learners. This is why AdaBoost tends to less overfit. However, because of the mechanism, if there were noises and outliers in the dataset, they would be amplified.</p>
+<p>The final model we picked is AdaBoost, which stands for Adaptive Boosting algorithm. The reason why random forest was not picked was that it over fitted. AdaBoost on the other hand is a linear combination of weak learners, learners that performs a little bit better than random gussing. In fact, the errors for the previous learner is the input for the next learner. The output is an weighted sum of all learners. This is why AdaBoost tends to less dependant on data itself. However, because of the mechanism, if there were noises and outliers in the dataset, they would be amplified.</p>
 
 </div>
 </div>
