@@ -180,11 +180,11 @@ class Environment(object):
         """ This function is called when a time step is taken turing a trial. """
 
         # Pretty print to terminal
-        print ""
-        print "/-------------------"
-        print "| Step {} Results".format(self.t)
-        print "\-------------------"
-        print ""
+        # print ""
+        # print "/-------------------"
+        # print "| Step {} Results".format(self.t)
+        # print "\-------------------"
+        # print ""
 
         if(self.verbose == True): # Debugging
             print "Environment.step(): t = {}".format(self.t)
@@ -251,7 +251,6 @@ class Environment(object):
             else:
                 if left != 'forward':  # we don't want to override left == 'forward'
                     left = other_heading
-
         return {'light': light, 'oncoming': oncoming, 'left': left, 'right': right}
 
     def get_deadline(self, agent):

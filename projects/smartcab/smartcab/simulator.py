@@ -53,6 +53,11 @@ class Simulator(object):
         self.update_delay = update_delay  # duration between each step (in seconds)
 
         self.display = display
+
+
+        #debug
+        self.display = False
+
         if self.display:
             try:
                 self.pygame = importlib.import_module('pygame')
@@ -86,26 +91,32 @@ class Simulator(object):
         # Setup metrics to report
         self.log_metrics = log_metrics
         self.optimized = optimized
-        
+        # debug
+        self.log_metrics = True
         if self.log_metrics:
             a = self.env.primary_agent
 
             # Set log files
             if a.learning:
                 if self.optimized: # Whether the user is optimizing the parameters and decay functions
+                    print("sim_improved-learning.txt")
                     self.log_filename = os.path.join("logs", "sim_improved-learning.csv")
                     self.table_filename = os.path.join("logs","sim_improved-learning.txt")
                 else: 
+                    print("sim_default-learning.txt")
                     self.log_filename = os.path.join("logs", "sim_default-learning.csv")
                     self.table_filename = os.path.join("logs","sim_default-learning.txt")
 
                 self.table_file = open(self.table_filename, 'wb')
             else:
+                print("sim_no-learning.csv")
                 self.log_filename = os.path.join("logs", "sim_no-learning.csv")
             
             self.log_fields = ['trial', 'testing', 'parameters', 'initial_deadline', 'final_deadline', 'net_reward', 'actions', 'success']
             self.log_file = open(self.log_filename, 'wb')
+            print("start writing log files")
             self.log_writer = csv.DictWriter(self.log_file, fieldnames=self.log_fields)
+
             self.log_writer.writeheader()
 
     def run(self, tolerance=0.05, n_test=0):
@@ -124,7 +135,7 @@ class Simulator(object):
         total_trials = 1
         testing = False
         trial = 1
-
+        
         while True:
 
             # Flip testing switch
@@ -183,7 +194,7 @@ class Simulator(object):
                         self.last_updated = self.current_time
                     
                     # Render text
-                    self.render_text(trial, testing)
+                    # self.render_text(trial, testing)
 
                     # Render GUI and sleep
                     if self.display:
@@ -201,6 +212,7 @@ class Simulator(object):
 
             # Collect metrics from trial
             if self.log_metrics:
+                print("start writing rows")
                 self.log_writer.writerow({
                     'trial': trial,
                     'testing': self.env.trial_data['testing'],
@@ -211,7 +223,16 @@ class Simulator(object):
                     'actions': self.env.trial_data['actions'],
                     'success': self.env.trial_data['success']
                 })
-
+                print({
+                    'trial': trial,
+                    'testing': self.env.trial_data['testing'],
+                    'parameters': self.env.trial_data['parameters'],
+                    'initial_deadline': self.env.trial_data['initial_deadline'],
+                    'final_deadline': self.env.trial_data['final_deadline'],
+                    'net_reward': self.env.trial_data['net_reward'],
+                    'actions': self.env.trial_data['actions'],
+                    'success': self.env.trial_data['success']
+                })
             # Trial finished
             if self.env.success == True:
                 print "\nTrial Completed!"
@@ -219,7 +240,6 @@ class Simulator(object):
             else:
                 print "\nTrial Aborted!"
                 print "Agent did not reach the destination."
-
             # Increment
             total_trials = total_trials + 1
             trial = trial + 1

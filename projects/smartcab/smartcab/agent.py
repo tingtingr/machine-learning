@@ -9,6 +9,7 @@ class LearningAgent(Agent):
         This is the object you will be modifying. """ 
 
     def __init__(self, env, learning=False, epsilon=1.0, alpha=0.5):
+        print('init')
         super(LearningAgent, self).__init__(env)     # Set the agent in the evironment 
         self.planner = RoutePlanner(self.env, self)  # Create a route planner
         self.valid_actions = self.env.valid_actions  # The set of valid actions
@@ -19,6 +20,15 @@ class LearningAgent(Agent):
         self.epsilon = epsilon   # Random exploration factor
         self.alpha = alpha       # Learning factor
 
+        self.log_metrics = True
+        # self.display = False
+        self.n_test = 10
+        self.update_delay = 0.01
+        self.enforce_deadline = True
+        self.learning = True
+        self.optimized = True
+        self.prev_state = None
+        self.tolerance = 0.1
         ###########
         ## TO DO ##
         ###########
@@ -39,6 +49,15 @@ class LearningAgent(Agent):
         # Update epsilon using a decay function of your choice
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
+        if testing:
+            self.epsilon = 0
+            self.alpha = self.epsilon
+        else:
+            # linear decay - default
+            if self.epsilon > 0 :    
+                self.epsilon = self.epsilon - 0.05
+            # Update epsilon using a decay function of your choice
+        # Update additional class parameters as needed
 
         return None
 
@@ -55,15 +74,9 @@ class LearningAgent(Agent):
         ########### 
         ## TO DO ##
         ###########
-        
-        # NOTE : you are not allowed to engineer eatures outside of the inputs available.
-        # Because the aim of this project is to teach Reinforcement Learning, we have placed 
-        # constraints in order for you to learn how to adjust epsilon and alpha, and thus learn about the balance between exploration and exploitation.
-        # With the hand-engineered features, this learning process gets entirely negated.
-        
         # Set 'state' as a tuple of relevant data for the agent        
-        state = None
-
+        state = (waypoint,inputs['light'],inputs['left'],inputs['oncoming'])
+        self.prev_state = state
         return state
 
 
@@ -87,6 +100,10 @@ class LearningAgent(Agent):
         ########### 
         ## TO DO ##
         ###########
+        # if self.learning:
+        #     if state not in self.Q.keys():
+        #         self.Q[state] = action
+
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
@@ -101,7 +118,7 @@ class LearningAgent(Agent):
         # Set the agent state and default action
         self.state = state
         self.next_waypoint = self.planner.next_waypoint()
-        action = None
+        action = random.choice(['left','right','forward'])
 
         ########### 
         ## TO DO ##
@@ -165,6 +182,7 @@ def run():
     # Follow the driving agent
     # Flags:
     #   enforce_deadline - set to True to enforce a deadline metric
+    
     env.set_primary_agent(agent)
 
     ##############
@@ -174,6 +192,7 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
+
     sim = Simulator(env)
     
     ##############
@@ -181,6 +200,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
+
     sim.run()
 
 
