@@ -55,9 +55,6 @@ class Simulator(object):
         self.display = display
 
 
-        #debug
-        self.display = False
-
         if self.display:
             try:
                 self.pygame = importlib.import_module('pygame')
@@ -90,9 +87,8 @@ class Simulator(object):
 
         # Setup metrics to report
         self.log_metrics = log_metrics
-        self.optimized = optimized
-        # debug
-        self.log_metrics = True
+        self.optimized = optimized  
+        print(log_metrics,optimized )
         if self.log_metrics:
             a = self.env.primary_agent
 
@@ -135,13 +131,15 @@ class Simulator(object):
         total_trials = 1
         testing = False
         trial = 1
-        
+
         while True:
 
             # Flip testing switch
             if not testing:
                 if total_trials > 20: # Must complete minimum 20 training trials
                     if a.learning:
+                        print(a.epsilon)
+                        print(tolerance)
                         if a.epsilon < tolerance: # assumes epsilon decays to 0
                             testing = True
                             trial = 1
