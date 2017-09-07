@@ -234,7 +234,7 @@ def run():
     
     
 
-    sim = Simulator(env,update_delay = 0.01, log_metrics = True, optimized = True, display = False)
+    sim = Simulator(env,update_delay = 0.01, log_metrics = True, optimized = True, display = True)
     
     ##############
     # Run the simulator
